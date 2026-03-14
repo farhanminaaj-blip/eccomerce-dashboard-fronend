@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumen - Billing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span>🌟 Lumen</span>
+            </div>
+            <nav class="main-nav">
+                <h3>MAIN</h3>
+                <ul>
+                    <li><a href="dashboard.html" class="nav-item">📊 Dashboard</a></li>
+                    <li><a href="calendar.html" class="nav-item">📅 Calendar</a></li>
+                    <li><a href="time-off.html" class="nav-item">⏱️ Time Off</a></li>
+                    <li><a href="projects.html" class="nav-item">📁 Projects</a></li>
+                    <li><a href="teams.html" class="nav-item">👥 Teams</a></li>
+                    <li><a href="integrations.html" class="nav-item">🔗 Integrations</a></li>
+                    <li><a href="billing.html" class="nav-item active">💰 Billing</a></li>
+                    <li><a href="documents.html" class="nav-item">📄 Documents</a></li>
+                </ul>
+            </nav>
+            <nav class="free-nav">
+                <h3>FREE</h3>
+                <ul>
+                    <li><a href="#" class="nav-item">🏠 Loom Mom App</a></li>
+                    <li><a href="#" class="nav-item">🎨 Monday Redesign</a></li>
+                    <li><a href="#" class="nav-item">📚 Monday Courses</a></li>
+                </ul>
+            </nav>
+            <footer class="sidebar-footer">
+                <button class="menu-btn" onclick="openSettings()">⚙️ Settings</button>
+                <button class="menu-btn" onclick="openSupport()">💬 Support</button>
+                <div class="user-profile" onclick="openUserMenu()">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <p class="user-name">Amina Akktar</p>
+                        <p class="user-email">aminaakktar2003@gmail.com</p>
+                    </div>
+                </div>
+            </footer>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <h1>💰 Billing & Subscription</h1>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn" onclick="toggleNotifications()">🔔<span class="notification-badge">0</span></button>
+                </div>
+            </header>
+
+            <!-- Billing Container -->
+            <div class="billing-container">
+                <!-- Current Plan -->
+                <div class="current-plan-section">
+                    <h2>Current Plan</h2>
+                    <div class="plan-card active">
+                        <div class="plan-header">
+                            <h3>Pro Plan</h3>
+                            <span class="badge">Active</span>
+                        </div>
+                        <div class="plan-price">
+                            <span class="price">$99</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-features">
+                            <p>✅ Unlimited Projects</p>
+                            <p>✅ Team Collaboration</p>
+                            <p>✅ Advanced Analytics</p>
+                            <p>✅ 24/7 Support</p>
+                            <p>✅ API Access</p>
+                        </div>
+                        <p class="renewal-date">Renews on: Jan 25, 2026</p>
+                        <button class="btn-secondary" onclick="changePlan()">Change Plan</button>
+                    </div>
+                </div>
+
+                <!-- Available Plans -->
+                <div class="plans-section">
+                    <h2>Other Plans</h2>
+                    <div class="plans-grid">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h3>Starter</h3>
+                            </div>
+                            <div class="plan-price">
+                                <span class="price">$29</span>
+                                <span class="period">/month</span>
+                            </div>
+                            <div class="plan-features">
+                                <p>✅ 5 Projects</p>
+                                <p>✅ Basic Support</p>
+                                <p>✅ 5 GB Storage</p>
+                                <p>❌ API Access</p>
+                            </div>
+                            <button class="btn-primary" onclick="upgradePlan('starter')">Choose Plan</button>
+                        </div>
+
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h3>Business</h3>
+                            </div>
+                            <div class="plan-price">
+                                <span class="price">$199</span>
+                                <span class="period">/month</span>
+                            </div>
+                            <div class="plan-features">
+                                <p>✅ Unlimited Everything</p>
+                                <p>✅ Priority Support</p>
+                                <p>✅ 500 GB Storage</p>
+                                <p>✅ API Access</p>
+                            </div>
+                            <button class="btn-primary" onclick="upgradePlan('business')">Choose Plan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing History -->
+                <div class="billing-history">
+                    <h2>Billing History</h2>
+                    <table class="billing-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="billing-history">
+                            <!-- Billing history will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="payment-section">
+                    <h2>Payment Method</h2>
+                    <div class="payment-method">
+                        <p>💳 Visa ending in 4242</p>
+                        <button class="btn-secondary" onclick="updatePayment()">Update Payment</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="pages/billing.js"></script>
+</body>
+</html>

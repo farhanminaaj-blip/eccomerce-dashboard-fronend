@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumen - Integrations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span>🌟 Lumen</span>
+            </div>
+            <nav class="main-nav">
+                <h3>MAIN</h3>
+                <ul>
+                    <li><a href="dashboard.html" class="nav-item">📊 Dashboard</a></li>
+                    <li><a href="calendar.html" class="nav-item">📅 Calendar</a></li>
+                    <li><a href="time-off.html" class="nav-item">⏱️ Time Off</a></li>
+                    <li><a href="projects.html" class="nav-item">📁 Projects</a></li>
+                    <li><a href="teams.html" class="nav-item">👥 Teams</a></li>
+                    <li><a href="integrations.html" class="nav-item active">🔗 Integrations</a></li>
+                    <li><a href="billing.html" class="nav-item">💰 Billing</a></li>
+                    <li><a href="documents.html" class="nav-item">📄 Documents</a></li>
+                </ul>
+            </nav>
+            <nav class="free-nav">
+                <h3>FREE</h3>
+                <ul>
+                    <li><a href="#" class="nav-item">🏠 Loom Mom App</a></li>
+                    <li><a href="#" class="nav-item">🎨 Monday Redesign</a></li>
+                    <li><a href="#" class="nav-item">📚 Monday Courses</a></li>
+                </ul>
+            </nav>
+            <footer class="sidebar-footer">
+                <button class="menu-btn" onclick="openSettings()">⚙️ Settings</button>
+                <button class="menu-btn" onclick="openSupport()">💬 Support</button>
+                <div class="user-profile" onclick="openUserMenu()">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <p class="user-name">Amina Akktar</p>
+                        <p class="user-email">aminaakktar2003@gmail.com</p>
+                    </div>
+                </div>
+            </footer>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <h1>🔗 Integrations</h1>
+                </div>
+                <div class="header-right">
+                    <input type="text" class="search-bar" placeholder="🔍 Search integrations...">
+                    <button class="icon-btn" onclick="toggleNotifications()">🔔<span class="notification-badge">0</span></button>
+                </div>
+            </header>
+
+            <!-- Integrations Container -->
+            <div class="integrations-container">
+                <div class="integration-category">
+                    <h3>Connected Integrations</h3>
+                    <div class="integrations-grid" id="connected-integrations">
+                        <!-- Connected integrations will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="integration-category">
+                    <h3>Available Integrations</h3>
+                    <div class="integrations-grid" id="available-integrations">
+                        <!-- Available integrations will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Integration Modal -->
+    <div id="integrationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeIntegrationModal()">&times;</span>
+            <h2>Connect Integration</h2>
+            <div class="integration-form">
+                <p id="integration-desc"></p>
+                <button class="btn-save" onclick="connectIntegration()">Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="pages/integrations.js"></script>
+</body>
+</html>
