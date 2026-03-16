@@ -15,8 +15,8 @@ async function loadTeamMembers() {
     try {
         console.log("📡 Fetching team members from MongoDB (users collection)...");
         
-        // Fetch from MongoDB users collection via public API
-        const res = await fetch("http://localhost:5000/api/from/users", {
+        // Fetch from API users endpoint (using configurable base URL)
+        const res = await fetch(`${API_FROM_URL}/users`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -185,7 +185,7 @@ async function sendData(){
         showNotification("⏳ Saving to database...");
         
         // 2. Send to MongoDB via register endpoint (saves to User model)
-        console.log("2️⃣ Sending to server: http://localhost:5000/api/auth/register");
+        console.log(`2️⃣ Sending to server: ${API_AUTH_URL}/register`);
         
         const requestBody = {
             username: name,
@@ -198,7 +198,7 @@ async function sendData(){
         
         console.log("📤 Request body:", JSON.stringify(requestBody));
         
-        const res = await fetch("http://localhost:5000/api/auth/register", {
+        const res = await fetch(`${API_AUTH_URL}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

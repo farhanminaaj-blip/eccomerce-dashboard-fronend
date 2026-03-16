@@ -1,5 +1,10 @@
 // ==================== SHARED FUNCTIONS FOR ALL PAGES ====================
 
+// Configurable API base for frontend deployment (local fallback).
+const API_BASE_URL = window.API_BASE_URL || (window.location.hostname.includes('localhost') ? 'http://localhost:5000' : 'https://eccomerce-dashboard-backend-1.onrender.com');
+const API_AUTH_URL = `${API_BASE_URL}/api/auth`;
+const API_FROM_URL = `${API_BASE_URL}/api/from`;
+
 // Toggle Sidebar
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
