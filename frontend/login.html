@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            border-radius: 12px;
+            font-family: Arial,  sans-serif;
+            justify-content: center;
+        }
+        .form-box {
+            max-width: 300px;
+            margin-top: 20%;
+            background: #f1f7fe;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            color: #010101;
+            position: relative;
+            left: 45%;
+        }
+
+        .form {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 32px 24px 24px;
+            gap: 16px;
+            text-align: center;
+        }
+
+        /*Form text*/
+        .title {
+            font-weight: bold;
+            font-size: 1.6rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /*Inputs box*/
+        .form-container {
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #fff;
+            margin: 1rem 0 .5rem;
+            width: 100%;
+        }
+
+        .input {
+            background: none;
+            border: 0;
+            outline: 0;
+            height: 40px;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+            font-size: .9rem;
+            padding: 8px 15px;
+        }
+
+        .form-section {
+            padding: 16px;
+            font-size: .85rem;
+            background-color: #e0ecfb;
+            box-shadow: rgb(0 0 0 / 8%) 0 -1px;
+        }
+
+        .form-section a {
+            font-weight: bold;
+            color: #0066ff;
+            transition: color .3s ease;
+        }
+
+        .form-section a:hover {
+            color: #005ce6;
+            text-decoration: underline;
+        }
+
+        /*Button*/
+        .form button {
+            background-color: #0066ff;
+            color: #fff;
+            border: 0;
+            border-radius: 24px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color .3s ease;
+        }
+
+        .form button:hover {
+            background-color: #005ce6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-box">
+        <form class="form" id="loginForm">
+            <span class="title">Login Here</span>
+            <div class="form-container">
+                <input type="email" id="email" class="input" placeholder="Email" required>
+                <input type="password" id="password" class="input" placeholder="Password" required>
+            </div>
+            <button type="submit">login</button>
+            <div id="response"></div>
+        </form>
+    </div>
+</body>
+
+</html>
+
+<script>
+  const form = document.getElementById("loginForm");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const emailEl = document.getElementById("email");
+    const passwordEl = document.getElementById("password");
+    const responseEl = document.getElementById("response");
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    const showMsg = (msg, isError = true) => {
+      responseEl.textContent = msg;
+      responseEl.style.color = isError ? '#c7254e' : '#1e7e34';
+    };
+
+    // Basic validation
+    const email = emailEl.value.trim();
+    const password = passwordEl.value;
+    if (!email || !password) {
+      showMsg('Please enter email and password.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Logging in...';
+
+    try {
+      const API_BASE_URL = window.API_BASE_URL || (window.location.hostname.includes('localhost') ? 'http://localhost:5000' : 'https://eccomerce-dashboard-backend-1.onrender.com');
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        if (result.token) localStorage.setItem('token', result.token);
+        if (result.userId) localStorage.setItem('userId', result.userId);
+        const isAdmin = !!result.isAdmin;
+        localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+        showMsg('Login successful — redirecting...', false);
+        // small delay so user sees message, then redirect based on role
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 400);
+        return;
+      }
+
+      // Normalize server errors for UX
+      if (res.status === 400 || res.status === 401) {
+        showMsg('Invalid email or password.');
+      } else {
+        showMsg(result.message || 'Login failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      showMsg('Network error. Please check your connection.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'login';
+    }
+  });
+</script>
